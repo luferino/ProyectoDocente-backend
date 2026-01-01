@@ -1,4 +1,4 @@
-export class student {
+export class Student {
     constructor ({id, nombre, apellido, documento, tipo_documento, celular, email}) {
         if (!nombre || !email) throw new Error('Name and email are required');
         this.id = id;
