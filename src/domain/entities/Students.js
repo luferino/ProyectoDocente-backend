@@ -1,5 +1,6 @@
 export class Student {
-    constructor ({id, nombre, apellido, documento, tipo_documento, celular, email}) {
+    constructor ({id, nombre, apellido, documento, tipo_documento, celular, email, edad, fecha_nacimiento}
+    ) {
         if (!nombre || !email) throw new Error('Name and email are required');
         this.id = id;
         this.nombre = nombre;
@@ -8,5 +9,7 @@ export class Student {
         this.tipo_documento = tipo_documento;
         this.celular = celular;
         this.email = email;
+        this.edad = edad;
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 }
