@@ -6,7 +6,7 @@ export class AssignGradeUseCase {
         this.gradeRepository = gradeRepository;
     }
 
-    async execute({ studentId, subjectId, value }) {
+    async execute({ studentId, subjectId, value }) { 
         const gradeValue = new GradeValue(value);
 
         const client = await this.pool.connect();
