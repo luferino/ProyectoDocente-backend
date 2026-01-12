@@ -16,7 +16,7 @@ export class AssignGradeUseCase {
 
             // Validar alumno 
             const student = await client.query(
-                'SELECT id FROM alumnos WHERE id = $1',
+                'SELECT id FROM estudiantes WHERE id = $1',
                 [studentId]
             );
             if (student.rowCount === 0) {
@@ -28,7 +28,7 @@ export class AssignGradeUseCase {
                 {
                     studentId,
                     subjectId,
-                    value: gradeValue.getValue()
+                    value: gradeValue.value
                 },
                 client
             );
