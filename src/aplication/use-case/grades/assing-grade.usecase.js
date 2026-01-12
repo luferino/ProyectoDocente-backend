@@ -1,4 +1,4 @@
-import { GradeValue } '../../../domain/value-objects/GradeValue.js';
+import { GradeValue } from '../../../domain/value-objects/GradeValue.js';
 
 export class AssignGradeUseCase {
     constructor(pool, gradeRepository) {

@@ -1,5 +1,5 @@
 import { GradeRepository } from '../../domain/repositories/GradeRepository.js';
-import { Grade } from '../../domain/entities/Grade.js';
+import { Grade } from '../../domain/entities/Grades.js';
 
 export class GradeRepositoryPostgres extends GradeRepository {
     async assign({ studentId, subjectId, value }, client) {
