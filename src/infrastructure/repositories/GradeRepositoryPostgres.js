@@ -16,4 +16,22 @@ export class GradeRepositoryPostgres extends GradeRepository {
             value: row.value
         });
     }
+
+    async findByStudentId(studentId) {
+        const result = await client.query(
+            `
+    SELECT 
+      s.id AS student_id,
+      s.name AS student_name,
+      sub.name AS subject_name,
+      g.value
+    FROM grades g
+    JOIN students s ON s.id = g.student_id
+    JOIN subjects sub ON sub.id = g.subject_id
+    WHERE s.id = $1
+    ORDER BY sub.name
+    `,
+            [studentId]
+        );
+    }
 }
