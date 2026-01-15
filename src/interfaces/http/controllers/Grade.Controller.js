@@ -1,8 +1,9 @@
 export class GradeController {
-    constructor(assignGradeUseCase) {
+    constructor(assignGradeUseCase,getGradeByStudentUseCase) {
         this.assignGradeUseCase = assignGradeUseCase;
         this.assign = this.assign.bind(this);
         this.getByStudent = this.getByStudent.bind(this);
+        this.getGradeByStudentUseCase = getGradeByStudentUseCase;
     }
 
     async assign(req, res) {
