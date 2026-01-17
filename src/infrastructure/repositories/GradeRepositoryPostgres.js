@@ -1,9 +1,10 @@
 import { GradeRepository } from '../../domain/repositories/GradeRepository.js';
 import { Grade } from '../../domain/entities/Grades.js';
+import { pool } from '../database/postgres/connection.js';
 
 export class GradeRepositoryPostgres extends GradeRepository {
     async assign({ studentId, subjectId, value }, client) {
-        const result = await client.query(
+        const result = await pool.query(
             'INSERT INTO notas (student_id, materia_id, value) VALUES ($1, $2, $3) RETURNING id, student_id, materia_id, value',
             [studentId, subjectId, value]
         );
@@ -18,7 +19,7 @@ export class GradeRepositoryPostgres extends GradeRepository {
     }
 
     async findByStudentId(studentId) {
-        const result = await client.query(
+        const result = await pool.query(
             `
     SELECT 
       s.id AS student_id,
