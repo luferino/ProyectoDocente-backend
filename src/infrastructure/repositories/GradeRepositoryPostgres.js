@@ -34,5 +34,6 @@ export class GradeRepositoryPostgres extends GradeRepository {
     `,
             [studentId]
         );
+        return result.rows;
     }
 }
