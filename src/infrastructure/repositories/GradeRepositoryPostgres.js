@@ -23,14 +23,14 @@ export class GradeRepositoryPostgres extends GradeRepository {
             `
     SELECT 
       s.id AS student_id,
-      s.name AS student_name,
-      sub.name AS subject_name,
+      s.nombres AS student_name,
+      sub.nombre AS subject_name,
       g.value
-    FROM grades g
-    JOIN students s ON s.id = g.student_id
-    JOIN subjects sub ON sub.id = g.subject_id
+    FROM notas g
+    JOIN estudiantes s ON s.id = g.student_id
+    JOIN materias sub ON sub.id = g.materia_id
     WHERE s.id = $1
-    ORDER BY sub.name
+    ORDER BY sub.nombre
     `,
             [studentId]
         );
