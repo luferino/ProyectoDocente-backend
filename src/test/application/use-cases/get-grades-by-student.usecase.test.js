@@ -1,4 +1,4 @@
-import { GetGradeByStudentUseCase } from '../../../aplication/use-case/grades/get-grade-by-student.usecase.js';
+import { GetGradeByStudentUseCase } from '../../../application/use-case/grades/get-grade-by-student.usecase.js';
 import { FacekGradeRepository } from '../../fakes/FackeGradeRepository.js';
 
 describe('GetGradeByStudentUseCase', () => {
@@ -22,10 +22,10 @@ describe('GetGradeByStudentUseCase', () => {
 
         const result = await useCase.execute(1);
 
-        expect (result).toEqual({
-            id: 1,
-            name: 'Juan Perez'
-        });
+        expect (result).toEqual([
+            { subjectName: 'Matemática', value: 90 },
+  { subjectName: 'Lengua', value: 80 }
+        ]);
 
         expect(result.grades).toHaveLength(2);
         expect(result.grades[0]).toEqual({
@@ -40,6 +40,6 @@ describe('GetGradeByStudentUseCase', () => {
 
         await expect(useCase.execute(99))
         .rejects
-        .toThrow('No grades found for the student');
+        .toThrow('Student has no grades or does not exist');
     });
 });

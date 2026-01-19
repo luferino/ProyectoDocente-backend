@@ -9,7 +9,7 @@ export class GetGradeByStudentUseCase {
         const rows = await this.gradeRepository.findByStudentId(studentId);
 
         if (rows.length === 0) {
-            throw new Error('Student has no grades or does not exis');
+            throw new Error('Student has no grades or does not exist');
         }
 
         const student = {
