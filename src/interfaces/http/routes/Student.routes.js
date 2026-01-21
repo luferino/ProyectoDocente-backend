@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import {StudentController} from '../../http/controllers/Student.Controller.js';
 import { StudentRepositoryPostgres } from '../../../infrastructure/repositories/StudentRepositoryPostgres.js';
-import { CreateStudentUseCase } from '../../../aplication/use-case/students/create-students.usecase.js';
-import { ListStudentsUseCase } from '../../../aplication/use-case/students/list-students.usecase.js';
+import { CreateStudentUseCase } from '../../../application/use-case/students/create-students.usecase.js';
+import { ListStudentsUseCase } from '../../../application/use-case/students/list-students.usecase.js';
 
 export const studentRoutes = () => {
 
