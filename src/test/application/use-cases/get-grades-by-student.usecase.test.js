@@ -1,5 +1,5 @@
 import { GetGradeByStudentUseCase } from '../../../application/use-case/grades/get-grade-by-student.usecase.js';
-import { FacekGradeRepository } from '../../fakes/FackeGradeRepository.js';
+import { FackeGradeRepository } from '../../fakes/FackeGradeRepository.js';
 
 describe('GetGradeByStudentUseCase', () => {
     test('should return student grades grouped correctly', async () => {
@@ -17,8 +17,7 @@ describe('GetGradeByStudentUseCase', () => {
                 value: 80
             }
         ];
-
-        const repository = new FacekGradeRepository(fakeRows);
+        const repository = new FackeGradeRepository(fakeRows);
         const useCase = new GetGradeByStudentUseCase(repository);
 
         const result = await useCase.execute(1);
@@ -37,7 +36,7 @@ describe('GetGradeByStudentUseCase', () => {
     });
 
     test('should throw error when student has no grades', async () => {
-        const repository = new FacekGradeRepository([]);
+        const repository = new FackeGradeRepository([]);
         const useCase = new GetGradeByStudentUseCase(repository);
 
         await expect(useCase.execute(99))

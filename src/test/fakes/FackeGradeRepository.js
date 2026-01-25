@@ -1,4 +1,4 @@
-export class FacekGradeRepository{
+export class FackeGradeRepository{
     constructor(rows = []){
         this.rows = rows;
     }

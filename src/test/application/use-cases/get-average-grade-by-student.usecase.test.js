@@ -1,11 +1,11 @@
-import { defaults } from 'pg';
-import {GetGradeByStudentUseCase} from '../../../application/use-case/grades/get-grade-by-student.usecase.js';
-import { FacekGradeRepository } from '../../fakes/FackeGradeRepository.js';
+
+import { GetAverageGradeByStudentUseCase } from '../../../application/use-case/grades/get-average-grade-by-tudent.usecase.js';
+import { FackeGradeRepository } from '../../fakes/FackeGradeRepository.js';
 
 describe('GetAverageGradeByStudentUseCase', () => {
 
     test('should return average grade for a student', async () => {
-        const repository = new FacekGradeRepository([
+        const repository = new FackeGradeRepository([
             {
                 student_id: 1,
                 student_name: 'Juan Perez',
@@ -17,21 +17,23 @@ describe('GetAverageGradeByStudentUseCase', () => {
                 value: 80
             }
         ]);
-        const useCase = new GetGradeByStudentUseCase(repository);
+        const useCase = new GetAverageGradeByStudentUseCase(repository);
         const result = await useCase.execute(1);
         expect(result.student).toEqual({
+       
                 id: 1,
                 name: 'Juan Perez'
+
             });
 
         expect(result.average).toBe(85);
     });
     test('should throw error when student has no grades', async () => {
-        const repository = new FacekGradeRepository([]);
-        const useCase = new GetGradeByStudentUseCase(repository);
+        const repository = new FackeGradeRepository([]);
+        const useCase = new GetAverageGradeByStudentUseCase(repository);
 
         await expect(useCase.execute(99))
             .rejects
-            .toThrow('Student has no grades or does not exist');
+            .toThrow('No grades found for the student');
     });
 });

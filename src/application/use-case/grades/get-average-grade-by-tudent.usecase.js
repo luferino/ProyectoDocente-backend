@@ -5,19 +5,19 @@ export class GetAverageGradeByStudentUseCase {
     }
 
     async execute(studentId){
-        const row = (await this.gradeRepository.getAverageGradeByStudent(studentId)) || [];
+        const rows = (await this.gradeRepository.findByStudentId(studentId)) || [];
 
-        if (row.length === 0) {
+        if (rows.length === 0) {
             throw new Error('No grades found for the student');
         }
 
-        const total = row.reduce((sum, r) => sum + r.value, 0);
-        const average = total / row.length;
+        const total = rows.reduce((sum, r) => sum + r.value, 0);
+        const average = total / rows.length;
 
         return {
             student: {
-                id: rows[0].studentId,
-                name: rows[0].studen_name,
+                id: rows[0].student_id,
+                name: rows[0].student_name,
             },
             average
         };
