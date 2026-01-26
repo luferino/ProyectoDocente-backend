@@ -1,9 +1,10 @@
 export class GradeController {
-    constructor(assignGradeUseCase,getGradeByStudentUseCase) {
+    constructor(assignGradeUseCase,getGradeByStudentUseCase, getAverageGradeByStudentUseCase) {
         this.assignGradeUseCase = assignGradeUseCase;
         this.assign = this.assign.bind(this);
         this.getByStudent = this.getByStudent.bind(this);
         this.getGradeByStudentUseCase = getGradeByStudentUseCase;
+        this.getAverageGradeByStudentUseCase = getAverageGradeByStudentUseCase;
     }
 
     async assign(req, res) {
@@ -21,6 +22,17 @@ export class GradeController {
             const result = await this.getGradeByStudentUseCase.execute(
                 Number(studentId)
             );
+            res.status(200).json(result);
+        }
+        catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    getAverageByStudent = async (req, res) => {
+        try{
+            const studentId = Number(req.params.id); 
+            const result = await this.getAverageGradeByStudentUseCase.execute(studentId);
             res.status(200).json(result);
         }
         catch (error) {
