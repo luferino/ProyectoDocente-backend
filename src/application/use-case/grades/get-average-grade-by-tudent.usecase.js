@@ -1,4 +1,3 @@
-
 export class GetAverageGradeByStudentUseCase {
     constructor(gradeRepository){
         this.gradeRepository = gradeRepository;
