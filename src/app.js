@@ -11,6 +11,7 @@ export function createApp() {
 
   app.use('/students', studentRoutes());
   app.use('/grades', gradeRoutes());
+  app.use('/api/grades', gradeRoutes(gradeController));
 
   return app;
 }

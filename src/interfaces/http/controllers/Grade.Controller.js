@@ -19,6 +19,11 @@ export class GradeController {
     async getByStudent(req, res) {
         try {
             const { studentId } = req.params;
+
+            if (Number.isNaN(studentId)) {
+                return res.status(400).json({ error: 'Invalid student id' });
+            }
+
             const result = await this.getGradeByStudentUseCase.execute(
                 Number(studentId)
             );
