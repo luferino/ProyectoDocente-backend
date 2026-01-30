@@ -34,7 +34,7 @@ export class GradeController {
         }
     }
 
-    getAverageByStudent = async (req, res) => {
+    async getAverageByStudent(req, res) {
         try{
             const studentId = Number(req.params.id); 
             const result = await this.getAverageGradeByStudentUseCase.execute(studentId);
