@@ -16,7 +16,7 @@ export const gradeRoutes = () => {
     router.post("/", controller.assign);
     router.get("/student/:studentId", controller.getByStudent);
     router.get("/student/:studentId/grades", controller.getByStudent);
-    router.get("/student/:studentId/grades/average", controller.getAverageByStudent);
+    router.get("/student/:studentId/grades/average", controller.getAverageByStudent.bind(controller));
 
     return router;
 }
