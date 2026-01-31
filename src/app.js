@@ -1,7 +1,7 @@
 import express from 'express';
-import { studentRoutes } from './interfaces/http/routes/Student.routes.js';
-import { gradeRoutes } from './interfaces/http/routes/Grade.routes.js';
-import { buildGradeModule } from './interfaces/http/modules/grade.modules.js';
+import { studentRoutes } from './infrastructure/http/routes/Student.routes.js';
+import { gradeRoutes } from './infrastructure/http/routes/Grade.routes.js';
+import { buildGradeModule } from './infrastructure/http/modules/grade.modules.js';
 
 export function createApp() {
   const app = express();
