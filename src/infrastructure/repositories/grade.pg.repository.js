@@ -1,6 +1,7 @@
 import { GradeRepository } from '../../domain/repositories/GradeRepository.js';
 import { Grade } from '../../domain/entities/Grades.js';
 import { pool } from '../database/postgres/connection.js';
+import { GradeAdapter } from '../http/adapters/grade.adapter.js';
 
 export class GradeRepositoryPostgres extends GradeRepository {
     async assign({ studentId, subjectId, value }, client) {
@@ -22,9 +23,10 @@ export class GradeRepositoryPostgres extends GradeRepository {
         const result = await pool.query(
             `
     SELECT 
-      s.id AS student_id,
-      s.nombres AS student_name,
-      sub.nombre AS subject_name,
+      s.id,
+      s.nombres,
+	  s.apellidos, 
+      sub.nombre AS materia,
       g.value
     FROM notas g
     JOIN estudiantes s ON s.id = g.student_id
@@ -34,6 +36,6 @@ export class GradeRepositoryPostgres extends GradeRepository {
     `,
             [studentId]
         );
-        return result.rows;
+        return result.rows.map(GradeAdapter.toDomain);
     }
 }

@@ -7,23 +7,22 @@ describe('GetAverageGradeByStudentUseCase', () => {
     test('should return average grade for a student', async () => {
         const repository = new FackeGradeRepository([
             {
-                student_id: 1,
-                student_name: 'Juan Perez',
+                student:{ id: 1, nombres: 'Juan Perez', apellidos: 'Gomez' },  
+                materia: 'Matematicas',
                 value: 90
             },
             {
-                student_id: 1,
-                student_name: 'Juan Perez',
+                student:{ id: 2, nombres: 'Juan Perez', apellidos: 'Gomez' },  
+                materia: 'Ciencias',
                 value: 80
             }
         ]);
         const useCase = new GetAverageGradeByStudentUseCase(repository);
         const result = await useCase.execute(1);
         expect(result.student).toEqual({
-       
                 id: 1,
-                name: 'Juan Perez'
-
+                name: 'Juan Perez',
+                lastname: 'Gomez'       
             });
 
         expect(result.average).toBe(85);

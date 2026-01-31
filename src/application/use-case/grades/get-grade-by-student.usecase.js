@@ -6,22 +6,26 @@ export class GetGradeByStudentUseCase {
     }
 
     async execute(studentId) {
-        const rows = await this.gradeRepository.findByStudentId(studentId);
+        const grades = await this.gradeRepository.findByStudentId(studentId);
 
-        if (rows.length === 0) {
+        if (!grades.length) {
             throw new Error('Student has no grades or does not exist');
         }
 
-        const student = {
-            id: rows[0].student_id,
-            name: rows[0].student_name,
-        }
+        const student = grades[0].student;
 
-        const grade = rows.map(row => ({
-            subjectName: row.subject_name,
-            value: row.value,
+        return {
+            student,
+            grades: grades.map(g => ({
+                subjectName: g.subject,
+                value: g.value,
+            }))
+        }
+       /* const grade = grades.map(g => ({
+            subjectName: g.subject,
+            value: g.value,
         }));
 
-        return new StudentGradesDTO(student, grade);
+        return new StudentGradesDTO(student, grade);*/
     }
 }

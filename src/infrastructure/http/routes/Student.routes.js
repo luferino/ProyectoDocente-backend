@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {StudentController} from '../controllers/Student.Controller.js';
-import { StudentRepositoryPostgres } from '../../repositories/StudentRepositoryPostgres.js';
+import { StudentRepositoryPostgres } from '../../repositories/student.pg.repository.js';
 import { CreateStudentUseCase } from '../../../application/use-case/students/create-students.usecase.js';
 import { ListStudentsUseCase } from '../../../application/use-case/students/list-students.usecase.js';
 

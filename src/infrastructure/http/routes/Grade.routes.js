@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { pool } from "../../../infrastructure/database/postgres/connection.js";
-import { GradeRepositoryPostgres } from "../../../infrastructure/repositories/GradeRepositoryPostgres.js";
+import { GradeRepositoryPostgres } from "../../../infrastructure/repositories/grade.pg.repository.js";
 import { AssignGradeUseCase } from "../../../application/use-case/grades/assing-grade.usecase.js";
 import { GradeController } from "../controllers/Grade.Controller.js";
 import { GetGradeByStudentUseCase } from '../../../application/use-case/grades/get-grade-by-student.usecase.js';
@@ -15,7 +15,6 @@ export const gradeRoutes = () => {
 
     router.post("/", controller.assign);
     router.get("/student/:studentId", controller.getByStudent);
-    router.get("/student/:studentId/grades", controller.getByStudent);
     router.get("/student/:studentId/grades/average", controller.getAverageByStudent.bind(controller));
 
     return router;
