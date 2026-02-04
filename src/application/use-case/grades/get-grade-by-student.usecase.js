@@ -1,4 +1,5 @@
 import { StudentGradesDTO } from '../../dtos/StudentGradesDTO.js';
+import { StudentHasNotGradesError } from '../../errors/student-has-not-grades.error.js';
 
 export class GetGradeByStudentUseCase {
     constructor(gradeRepository) {
@@ -9,7 +10,7 @@ export class GetGradeByStudentUseCase {
         const grades = await this.gradeRepository.findByStudentId(studentId);
 
         if (!grades.length) {
-            throw new Error('Student has no grades or does not exist');
+            throw new StudentHasNotGradesError();
         }
 
         const student = grades[0].student;
