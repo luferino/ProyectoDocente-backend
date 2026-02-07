@@ -17,7 +17,6 @@ export class GradeController {
     }
 
     async getByStudent(req, res) {
-        try {
             const { studentId } = req.params;
 
             if (Number.isNaN(studentId)) {
@@ -28,10 +27,7 @@ export class GradeController {
                 Number(studentId)
             );
             res.status(200).json(result);
-        }
-        catch (error) {
-            res.status(400).json({ error: error.message });
-        }
+        
     }
 
     async getAverageByStudent(req, res) {

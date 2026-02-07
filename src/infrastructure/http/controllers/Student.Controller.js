@@ -12,6 +12,7 @@ export class StudentController {
             res.status(400).json({ error: error.message });
         }
     };
+    
 
     list = async (req, res) => {
         try {
