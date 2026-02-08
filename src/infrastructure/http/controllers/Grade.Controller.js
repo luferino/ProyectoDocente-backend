@@ -27,7 +27,7 @@ export class GradeController {
                 Number(studentId)
             );
             res.status(200).json(result);
-        
+            
     }
 
     async getAverageByStudent(req, res) {
