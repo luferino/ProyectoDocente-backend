@@ -1,5 +1,7 @@
-export class GradeController {
+import { BaseController } from './Base.controller.js';
+export class GradeController extends BaseController {
     constructor(assignGradeUseCase,getGradeByStudentUseCase, getAverageGradeByStudentUseCase) {
+        super();
         this.assignGradeUseCase = assignGradeUseCase;
         this.assign = this.assign.bind(this);
         this.getByStudent = this.getByStudent.bind(this);
@@ -19,14 +21,10 @@ export class GradeController {
     async getByStudent(req, res) {
             const { studentId } = req.params;
 
-            if (Number.isNaN(studentId)) {
-                return res.status(400).json({ error: 'Invalid student id' });
-            }
+            
+            const result = await this.getGradeByStudentUseCase.execute(studentId);
 
-            const result = await this.getGradeByStudentUseCase.execute(
-                Number(studentId)
-            );
-            res.status(200).json(result);
+            res.json(result);
             
     }
 
