@@ -15,7 +15,7 @@ export const gradeRoutes = () => {
     const controller = new GradeController(assingUseCase, getGradeByStudentUseCase);
 
     router.post("/", controller.assign);
-    router.get("/student/:studentId", asyncHandler(controller.getByStudent));
+    router.get("/student/:studentId", controller.handle(controller.getByStudent));
     router.get("/student/:studentId/grades/average", controller.getAverageByStudent.bind(controller));
 
     return router;
