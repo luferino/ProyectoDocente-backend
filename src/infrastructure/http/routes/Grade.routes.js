@@ -4,7 +4,6 @@ import { GradeRepositoryPostgres } from "../../../infrastructure/repositories/gr
 import { AssignGradeUseCase } from "../../../application/use-case/grades/assing-grade.usecase.js";
 import { GradeController } from "../controllers/Grade.Controller.js";
 import { GetGradeByStudentUseCase } from '../../../application/use-case/grades/get-grade-by-student.usecase.js';
-import { asyncHandler } from '../helpers/async-handler.js';
 
 export const gradeRoutes = () => {
     const router = Router();

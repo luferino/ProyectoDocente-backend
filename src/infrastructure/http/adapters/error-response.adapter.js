@@ -1,23 +1,15 @@
-import { StudentHasNotGradesError} from '../../../application/errors/student-has-not-grades.error.js';
+import { httpErrorMap } from '../errors/http-errors.map.js';
 
 export class ErrorResponseAdapter {
     static toHttp(error) {
-        if( error instanceof StudentHasNotGradesError) {
-            return {
-                status: 404,
-                body: {
-                    error: 'STUDENT_HAS_NOT_GRADES',
-                    message: error.message
-                }
-            };
-        }
+        const status = httpErrorMap[error.name] || 500;
 
         return {
-            status: 500,
+            status,
             body: {
-                error: 'INTERNAL_SERVER_ERROR',
-                message: 'An unexpected error occurred.'
+                error: error.name || 'INTERNAL_SERVER_ERROR',
+                message: error.message || 'An unexpected error occurred.'
             }
-        };
+        }
     }
 }
