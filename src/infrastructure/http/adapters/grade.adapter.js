@@ -7,7 +7,7 @@ export class GradeAdapter {
                 name: row.nombres,
                 lastname: row.apellidos
             },
-            subject: row.materias,
+            subject: row.materia,
             value: row.value
         };
     }
