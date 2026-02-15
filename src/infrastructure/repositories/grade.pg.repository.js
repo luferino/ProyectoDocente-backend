@@ -36,6 +36,6 @@ export class GradeRepositoryPostgres extends GradeRepository {
     `,
             [studentId]
         );
-        return result.rows.map(GradeAdapter.toDomain);
+        return result.rows.map( row => GradeAdapter.toDomain(row));
     }
 }

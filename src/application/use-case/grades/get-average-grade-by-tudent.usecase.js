@@ -1,25 +1,27 @@
+import { StudentHasNoGradesError } from '../../errors/student-has-not-grades.error.js';
+import { AverageGradeResponseDTO } from '../../dtos/average-grade-response.dto.js';
+
 export class GetAverageGradeByStudentUseCase {
     constructor(gradeRepository){
         this.gradeRepository = gradeRepository;
     }
 
     async execute(studentId){
-        const rows = (await this.gradeRepository.findByStudentId(studentId)) || [];
 
-        if (rows.length === 0) {
-            throw new Error('No grades found for the student');
+        const grades = await this.gradeRepository.findByStudentId(studentId);
+
+        if (!grades.length) {
+            throw new StudentHasNoGradesError();
         }
 
-        const total = rows.reduce((sum, r) => sum + r.value, 0);
-        const average = total / rows.length;
+        const total = grades.reduce((sum, g) => sum + g.value, 0);
+        const average = total / grades.length;
 
-        return {
-            student: {
-                id: rows[0].student_id,
-                name: rows[0].student_name,
-            },
+        return new AverageGradeResponseDTO({
+            studentId: grades[0].student_id,
+            studentName: grades[0].student_name,
             average
-        };
+        });
     }
 }
 

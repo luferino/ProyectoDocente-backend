@@ -20,7 +20,6 @@ export class GradeController extends BaseController {
 
     async getByStudent(req, res) {
             const { studentId } = req.params;
-
             
             const result = await this.getGradeByStudentUseCase.execute(studentId);
 

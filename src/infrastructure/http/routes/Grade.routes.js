@@ -4,6 +4,7 @@ import { GradeRepositoryPostgres } from "../../../infrastructure/repositories/gr
 import { AssignGradeUseCase } from "../../../application/use-case/grades/assing-grade.usecase.js";
 import { GradeController } from "../controllers/Grade.Controller.js";
 import { GetGradeByStudentUseCase } from '../../../application/use-case/grades/get-grade-by-student.usecase.js';
+import { GetAverageGradeByStudentUseCase } from '../../../application/use-case/grades/get-average-grade-by-tudent.usecase.js';
 
 export const gradeRoutes = () => {
     const router = Router();
@@ -11,7 +12,8 @@ export const gradeRoutes = () => {
     const repository = new GradeRepositoryPostgres();
     const assingUseCase = new AssignGradeUseCase(pool, repository);
     const getGradeByStudentUseCase = new GetGradeByStudentUseCase(repository);
-    const controller = new GradeController(assingUseCase, getGradeByStudentUseCase);
+    const getAverageGradeByStudentUseCase = new GetAverageGradeByStudentUseCase(repository);
+    const controller = new GradeController(assingUseCase, getGradeByStudentUseCase, getAverageGradeByStudentUseCase);
 
     router.post("/", controller.assign);
     router.get("/student/:studentId", controller.handle(controller.getByStudent));
