@@ -1,5 +1,5 @@
 export class Grade {
-    constructor ({id, studentId, studentName,subjectId, value}){
+    constructor ({id, studentId, studentName,subjectId,subjectName, value}){
 
         if (value < 0 || value > 100) {
             throw new Error('Invalid grade value. It must be between 0 and 100.');
@@ -9,6 +9,7 @@ export class Grade {
         this.studentId = studentId;
         this.studentName = studentName;
         this.subjectId = subjectId;
+        this.subjectName = subjectName;
         this.value = value;
     }
 

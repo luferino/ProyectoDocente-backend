@@ -1,5 +1,5 @@
 import { GradeRepository } from '../../domain/repositories/GradeRepository.js';
-import { Grade } from '../../domain/entities/Grades.js';
+import { Grade } from '../../domain/entities/grade.entity.js';
 import { pool } from '../database/postgres/connection.js';
 import { GradeAdapter } from '../http/adapters/grade.adapter.js';
 

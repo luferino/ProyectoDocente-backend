@@ -1,14 +1,15 @@
 // infrastructure/http/adapters/grade.adapter.js
+import { Grade } from '../../../domain/entities/grade.entity.js';
+
 export class GradeAdapter {
     static toDomain(row) {
-        return {
-            student: {
+        return new Grade({
+          
                 id: row.id,
-                name: row.nombres,
-                lastname: row.apellidos
-            },
-            subject: row.materia,
-            value: row.value
-        };
+                studentId: row.student_id,
+                studentName: row.nombres + ' ' + row.apellidos,
+                subjectName: row.materia,
+                value: row.value
+        });
     }
 }
