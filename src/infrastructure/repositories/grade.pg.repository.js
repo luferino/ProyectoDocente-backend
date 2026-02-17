@@ -2,6 +2,7 @@ import { GradeRepository } from '../../domain/repositories/GradeRepository.js';
 import { Grade } from '../../domain/entities/grade.entity.js';
 import { pool } from '../database/postgres/connection.js';
 import { GradeAdapter } from '../http/adapters/grade.adapter.js';
+import { GradePersistenceAdapter } from '../persistence/adapters/grade-persistence.adapter.js';
 
 export class GradeRepositoryPostgres extends GradeRepository {
     async assign({ studentId, subjectId, value }, client) {
@@ -38,4 +39,16 @@ export class GradeRepositoryPostgres extends GradeRepository {
         );
         return result.rows.map( row => GradeAdapter.toDomain(row));
     }
+    
+async getByStudent(studentId) {
+
+    const result = await pool.query(
+        'SELECT * FROM grades WHERE student_id = $1',
+        [studentId]
+    );
+
+    return result.rows.map(row =>
+        GradePersistenceAdapter.toDomain(row)
+    );
+}
 }
