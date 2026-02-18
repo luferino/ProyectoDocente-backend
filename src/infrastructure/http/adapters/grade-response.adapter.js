@@ -1,16 +1,14 @@
 export class gradeRsponseAdapter {
     static toHttp(result){
         return {
-            student: {
-                id: result.id,
-                name: result.nombres,
-                lastname: result.apellidos
-            },
-            average: result.average,
-            grades: result.grades.map(g => ({
-                subject: g.materia,
-                grade: g.value
-            }))
+            status: 200,
+            body: {
+                success: true,
+                data: {
+                    student: dto.student,
+                    average: dto.average
+                }
+            }  
         }
     }
 }
