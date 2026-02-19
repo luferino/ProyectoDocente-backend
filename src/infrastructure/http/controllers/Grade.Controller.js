@@ -1,4 +1,5 @@
 import { BaseController } from './Base.controller.js';
+import { gradeRsponseAdapter } from '../adapters/grade-response.adapter.js';
 export class GradeController extends BaseController {
     constructor(assignGradeUseCase,getGradeByStudentUseCase, getAverageGradeByStudentUseCase) {
         super();
@@ -28,13 +29,13 @@ export class GradeController extends BaseController {
     }
 
     async getAverageByStudent(req, res) {
-        try{
-            const studentId = Number(req.params.id); 
+       
+            const {studentId} = req.params; 
             const result = await this.getAverageGradeByStudentUseCase.execute(studentId);
-            res.status(200).json(result);
-        }
-        catch (error) {
-            res.status(400).json({ error: error.message });
-        }
+
+            const response = gradeRsponseAdapter.toHttp(result);
+
+            res.status(response.status).json(response.body);
+        
     }
 }
