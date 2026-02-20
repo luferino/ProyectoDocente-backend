@@ -30,17 +30,19 @@ src/
 ├── application/
 │   ├── dtos/
 │   └── use-cases/
+│   └── errors/
+├── config/
 ├── domain/
 │   ├── entities/
 │   └── repositories/
+│   └── value-objects/
 ├── infrastructure/
 │   ├── database/
+│   ├── http/
+│   ├── persistence/
 │   └── repositories/
-├── interfaces/
-│   └── http/
-│       ├── controllers/
-│       └── routes/
 └── index.js
+└── app.js
 ```
 
 ### 📌 Capas
