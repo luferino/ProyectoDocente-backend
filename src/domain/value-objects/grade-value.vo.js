@@ -13,8 +13,8 @@ export class GradeValue {
             throw new Error('Grade value must be a number');
         }
 
-        if (value < 0 || value > 100) {
-            throw new Error('Grade value must be between 0 and 100');
+        if (value < 1 || value > 5) {
+            throw new Error('Grade value must be between 1 and 5');
         }
     }
 
