@@ -1,21 +1,26 @@
+import { Result } from '../shared/result.js';
+import { InvalidGradeValueError } from '../errors/domain.error.js';
+
 export class GradeValue {
     constructor(value) {
-        this._validate(value);
         this._value = value;
         Object.freeze(this);
     }
-    _validate(value) {
+
+    static create(value) {
         if (value === undefined || value === null) {
-            throw new Error('Grade value is required');
+            return Result.fail(new InvalidGradeValueError());
         }
         
         if(typeof value !== 'number') {
-            throw new Error('Grade value must be a number');
+            return Result.fail(new InvalidGradeValueError());
         }
 
         if (value < 1 || value > 5) {
-            throw new Error('Grade value must be between 1 and 5');
+            return Result.fail(new InvalidGradeValueError());
         }
+
+        return Result.ok(new GradeValue(value));
     }
 
     get value() {
@@ -23,9 +28,6 @@ export class GradeValue {
     }
 
     isApproved() {
-        return this._value >= 60;
-    }
-    equals(other) {
-        return other instanceof GradeValue && this._value === other._value;
+        return this._value >= 2;
     }
 }
