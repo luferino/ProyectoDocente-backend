@@ -25,4 +25,7 @@ export class GradeValue {
     isApproved() {
         return this._value >= 60;
     }
+    equals(other) {
+        return other instanceof GradeValue && this._value === other._value;
+    }
 }
