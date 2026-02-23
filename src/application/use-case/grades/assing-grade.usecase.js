@@ -7,7 +7,10 @@ export class AssignGradeUseCase {
     }
 
     async execute({ studentId, subjectId, value }) { 
-        const gradeValue = new GradeValue(value);
+        const gradeOrError = GradeValue.create(value);
+        if (gradeOrError.isFailure) {
+            return gradeOrError;
+        }
 
         const client = await this.pool.connect();
 
