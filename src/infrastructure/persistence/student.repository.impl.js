@@ -40,6 +40,18 @@ export class StudentRepositoryImpl {
                 lastname: student.lastname
             });
             
+        // Estrategia simple: borrar y reinsertar
+        await this.DB('grades')
+            .where({ student_id: student.id })
+            .del();
+        
+        for (const grade of student.grades) {
+            await this.DB('grades').insert({
+                student_id: student.id,
+                subject_name: grade.subject,
+                value: grade.value.value
+            });
+        };
     }
 
 }   
