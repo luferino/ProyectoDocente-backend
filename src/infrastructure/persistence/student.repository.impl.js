@@ -20,13 +20,11 @@ export class StudentRepositoryImpl {
 
         const grades = gradesRows.map(row => {
             new Grade({
-                id: studentRow.id,
-                name: studentRow.name,
-                lastname: studentRow.lastname,
-                grades
+                subject: row.subject_name,
+                value: new GradeValue(row.value)
             })
-
         });
+        
     }
 }    
 
