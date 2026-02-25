@@ -24,7 +24,23 @@ export class StudentRepositoryImpl {
                 value: new GradeValue(row.value)
             })
         });
-        
+
+        return new Student({
+            id: estudentRow.studentId,
+            name: estudentRow.name,
+            grades
+        });
     }
-}    
+    
+    async save(student) {
+        await this.DB('students')
+            .where({ studentId: student.id })
+            .update({
+                name: student.name,
+                lastname: student.lastname
+            });
+            
+    }
+
+}   
 
