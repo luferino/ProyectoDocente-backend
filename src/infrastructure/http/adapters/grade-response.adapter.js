@@ -1,4 +1,4 @@
-export class gradeRsponseAdapter {
+export class gradeResponseAdapter {
     static toHttp(result){
         return {
             status: 200,
