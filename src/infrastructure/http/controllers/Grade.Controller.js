@@ -70,7 +70,8 @@ export class GradeController extends BaseController {
             
             res.status(201).json(result);
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            const httpError = ErrorResponseAdapter.toHttp(error);
+            res.status(httpError.status).json(httpError.body);
         }
     }
 }
