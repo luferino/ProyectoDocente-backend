@@ -2,6 +2,7 @@ import { BaseController } from './Base.controller.js';
 import {ErrorResponseAdapter} from '../adapters/error-response.adapter.js';
 import { GetGradesByStudentQuery } from '../../../application/queries/get-grades-by-student/get-grades-by-student.query.js';
 import {GetAverageGradeByStudentQuery} from '../../../application/queries/get-grades-by-student/get-average-grade-by-student.query.js';
+import {AddGradeHandler} from '../../../application/commands/add-grade/add-grade.command.js';
 
 export class GradeController extends BaseController {
     constructor(assignGradeUseCase,getGradeByStudentHandle, getAverageGradeByStudentUseCase, getAverageByStudentHandle) {
@@ -12,6 +13,7 @@ export class GradeController extends BaseController {
         this.getGradeByStudentHandle = getGradeByStudentHandle;
         this.getAverageGradeByStudentUseCase = getAverageGradeByStudentUseCase;
         this.getAverageByStudentHandle = getAverageByStudentHandle;
+        this.AddGradeHandler = addGradeHandler;
     }
 
     async assign(req, res) {
@@ -56,5 +58,19 @@ export class GradeController extends BaseController {
 
             res.status(response.status).json(response.body);*/
         
+    }
+    async addGrade(req, res) {
+        try {
+            const studentId = parseInt(req.params.studentId);
+            const { subject, value } = req.body;
+            
+            const command = new AddGradeHandler(studentId, subject, value);
+
+            const result = await this.addGradeHandler.execute(command);
+            
+            res.status(201).json(result);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     }
 }
