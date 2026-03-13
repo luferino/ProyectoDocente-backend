@@ -5,8 +5,8 @@ import { pool } from '../database/postgres/connection.js';
 export class StudentRepositoryPostgres extends StudentRepository {
     async create ({nombres, apellidos, documento, tipo_documento, celular, email, edad, fecha_nacimiento}) {
         const result = await pool.query(
-            'INSERT INTO estudiantes (nombres, apellidos, documento, tipo_documento, celular, email, edad, fecha_nacimiento) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id,nombres,apellidos',
-            [nombres, apellidos, documento, tipo_documento, celular, email, edad, fecha_nacimiento]
+            'INSERT INTO estudiantes (nombres, apellidos, documento, tipo_documento, celular, email, edad, fecha_nacimiento) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id,nombres,apellidos',   
+            [nombres, apellidos, documento, tipo_documento, celular, email, edad, fecha_nacimiento] 
         );
         return new Student(result.rows[0]);
     }
