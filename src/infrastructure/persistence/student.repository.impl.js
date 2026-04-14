@@ -1,6 +1,6 @@
 import { Student } from '../../domain/entities/Students.js';
 import { Grade } from '../../domain/entities/grade.entity.js';
-import { GradeValue } from '../../domain//value-objects/grade-value.vo.js';
+import { GradeValue } from '../../domain/value-objects/grade-value.vo.js';
 
 export class StudentRepositoryImpl {
     constructor(DB) {
