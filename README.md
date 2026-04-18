@@ -23,38 +23,42 @@ Este proyecto fue diseñado con un enfoque profesional, priorizando:
 
 ## 🧱 Arquitectura
 
-El proyecto sigue una arquitectura por capas:
+El proyecto sigue una arquitectura **modular** basada en **Clean Architecture**:
 
 ```
 src/
-├── application/
-│   ├── dtos/
-│   └── use-cases/
-│   └── errors/
+├── modules/
+│   ├── student/           # Módulo de estudiantes
+│   │   ├── domain/        # entidades, repositorios (interfaces)
+│   │   ├── application/   # use-cases, dtos, errors
+│   │   └── infrastructure/ # controladores, rutas, repositorios impl
+│   ├── grades/            # Módulo de notas
+│   │   ├── domain/        # entidades, repositorios, value-objects, errors
+│   │   ├── application/   # use-cases, queries, commands, dtos
+│   │   └── infrastructure/ # controladores, rutas, repositorios, adapters
+│   └── subject/           # Módulo de materias (en desarrollo)
+├── shared/                # Utilidades compartidas
+│   ├── database/          # conexión a PostgreSQL
+│   ├── http/              # adapters, errors, middlewares
+│   └── result.js          # clase Result para manejo de errores
 ├── config/
-├── domain/
-│   ├── entities/
-│   └── repositories/
-│   └── value-objects/
-├── infrastructure/
-│   ├── database/
-│   ├── http/
-│   ├── persistence/
-│   └── repositories/
-└── index.js
-└── app.js
+├── app.js                 # configuración de Express
+└── index.js              # punto de entrada
 ```
 
-### 📌 Capas
+### 📌 Capas por módulo
 
-* **Domain**: reglas de negocio puras (entidades y contratos)
-* **Application**: casos de uso y DTOs
-* **Infrastructure**: base de datos y repositorios concretos
-* **Interfaces**: controladores HTTP y rutas
+* **Domain**: reglas de negocio puras (entidades, repositorios, value objects)
+* **Application**: casos de uso, commands, queries, dtos
+* **Infrastructure**: controladores HTTP, rutas, repositorios concretos
 
 ---
 
 ## 📖 Casos de uso implementados
+
+### ✔ Gestionar estudiantes
+* Crear estudiante
+* Listar todos los estudiantes
 
 ### ✔ Asignar nota a un alumno
 
@@ -63,7 +67,10 @@ src/
 ### ✔ Obtener notas por alumno
 
 * Devuelve información del alumno y sus notas
-* Uso de DTO para lecturas complejas
+
+### ✔ Obtener promedio de notas por alumno
+
+* Calcula el promedio de las notas de un estudiante
 
 Ejemplo de respuesta:
 
@@ -74,8 +81,8 @@ Ejemplo de respuesta:
     "name": "Juan Perez"
   },
   "grades": [
-    { "subjectName": "Matemática", "value": 90 },
-    { "subjectName": "Lengua", "value": 80 }
+    { "subject": "Matemática", "grade": 4.5 },
+    { "subject": "Lengua", "grade": 3.8 }
   ]
 }
 ```
@@ -89,7 +96,7 @@ Se implementaron **tests unitarios de casos de uso**, sin dependencia de base de
 ### 📂 Ubicación
 
 ```
-src/test/application/use-cases/
+src/test/
 ```
 
 ### 🧠 Enfoque
@@ -106,49 +113,21 @@ pnpm test
 
 ---
 
-## ⚙️ Configuración del proyecto
-
-### 1️⃣ Instalar dependencias
-
-```bash
-pnpm install
-```
-
-### 2️⃣ Variables de entorno
-
-Crear archivo `.env`:
-
-```env
-DB_HOST=
-DB_PORT=
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
-```
-
-### 3️⃣ Ejecutar la aplicación
-
-```bash
-pnpm run dev
-```
-
----
-
 ## 🎯 Objetivos del proyecto
 
 * Aplicar Clean Architecture en un backend real
-* Demostrar buenas prácticas de testing
+* Demostrar arquitectura modular escalable
+* Facilitar mantenimiento y testing
 * Servir como proyecto demostrativo para entrevistas técnicas
 
 ---
 
 ## 📌 Próximas mejoras
 
-* Promedio de notas por alumno
-* Promedio por materia
-* Manejo de errores de dominio tipados
+* CRUD completo de materias (subject module)
 * Tests de integración
 * Autenticación y roles
+* Documentación con Swagger
 
 ---
 

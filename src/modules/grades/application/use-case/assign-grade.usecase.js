@@ -1,0 +1,48 @@
+import { GradeValue } from '../../domain/value-objects/grade-value.vo.js';
+
+export class AssignGradeUseCase {
+    constructor(pool, gradeRepository) {
+        this.pool = pool;
+        this.gradeRepository = gradeRepository;
+    }
+
+    async execute({ studentId, subjectId, value }) { 
+        const gradeOrError = GradeValue.create(value);
+        if (gradeOrError.isFailure) {
+            return gradeOrError;
+        }
+
+        const client = await this.pool.connect();
+
+        try {
+            await client.query('BEGIN');
+
+            const student = await client.query(
+                'SELECT id FROM estudiantes WHERE id = $1',
+                [studentId]
+            );
+            if (student.rowCount === 0) {
+                throw new Error('Student not found');
+            }
+
+            const grade = await this.gradeRepository.assign(
+                {
+                    studentId,
+                    subjectId,
+                    value: gradeOrError.value
+                },
+                client
+            );
+
+            await client.query('COMMIT');
+            return grade;
+
+        }
+        catch (error) {
+            await client.query('ROLLBACK');
+            throw error;
+        }finally {
+            client.release();
+        }
+    }
+}
